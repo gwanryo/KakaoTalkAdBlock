@@ -7,7 +7,7 @@ I use KakaoTalk multiple clients, so I changed program to remove all ads in mult
 
 ## Download
 
-- Download [publish/setup.exe](https://github.com/blurfx/KakaoTalkAdBlock/blob/master/publish/setup.exe)
+- Download [publish/setup.exe](https://github.com/gwanryo/KakaoTalkAdBlock/blob/personal/publish/setup.exe)
 - Run `setup.exe` to install
 - After installation, run `KakaoTalkAdBlock` from the Start menu or desktop 
 
