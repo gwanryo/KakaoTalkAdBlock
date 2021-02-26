@@ -2,6 +2,9 @@
 
 Removes ads from KakaoTalk PC client.
 
+## Notice
+I use KakaoTalk multiple clients, so I changed program to remove all ads in multiple windows.
+
 ## Download
 
 - Download [publish/setup.exe](https://github.com/blurfx/KakaoTalkAdBlock/blob/master/publish/setup.exe)
@@ -15,7 +18,7 @@ Removes ads from KakaoTalk PC client.
 ### When uninstallable on Windows 10 due to security issues
 
 #### Automatic fix
-- Download [win10-security-fix.reg](https://github.com/blurfx/KakaoTalkAdBlock/blob/master/win10-security-fix.reg)
+- Download [win10-security-fix.reg](https://github.com/gwanryo/KakaoTalkAdBlock/blob/personal/win10-security-fix.reg)
 - Run `win10-security-fix.reg` to fix registry automatically
 
 #### Manual fix
@@ -25,12 +28,12 @@ Removes ads from KakaoTalk PC client.
 
 ## Update History
 
-- Go [Releases](https://github.com/blurfx/KakaoTalkAdBlock/releases) page 
+- Go [Releases](https://github.com/gwanryo/KakaoTalkAdBlock/releases) page 
 
 ## At a glance
 
-![](https://raw.githubusercontent.com/blurfx/KakaoTalkAdBlock/master/kakaotalk.png)
+![](https://raw.githubusercontent.com/gwanryo/KakaoTalkAdBlock/personal/kakaotalk.png)
 
 This program runs in the tray.
 
-![](https://raw.githubusercontent.com/blurfx/KakaoTalkAdBlock/master/tray.png)
+![](https://raw.githubusercontent.com/gwanryo/KakaoTalkAdBlock/personal/tray.png)

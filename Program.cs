@@ -81,7 +81,6 @@ namespace KakaoTalkAdBlock
         static Thread runnerThread = new Thread(new ThreadStart(removeAd));
 
         static readonly object hwndLock = new object();
-        static bool hasRemovedPopupAd = false;
 
         const int UPDATE_RATE = 100;
 
@@ -94,10 +93,29 @@ namespace KakaoTalkAdBlock
             var versionItem = new ToolStripMenuItem();
             var exitItem = new ToolStripMenuItem();
             var startupItem = new ToolStripMenuItem();
+            var loveWith = new ToolStripMenuItem();
 
             // version
-            versionItem.Text = "v0.0.11";
-            versionItem.Enabled = false;
+            versionItem.Text = "v0.0.12 (🙄 with gwanryo)";
+            versionItem.Enabled = true;
+            versionItem.Click += new EventHandler(delegate (object sender, EventArgs e)
+            {
+                string message = "Nice to meet you!\nI'm gwanryo\nhttps://github.com/gwanryo";
+                DialogResult result = DialogResult.No;
+
+                while ((result = MessageBox.Show(message, "Introduce", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information)) == DialogResult.No)
+                {
+                    if (result == DialogResult.No)
+                    {
+                        MessageBox.Show("🤬", "🤬", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
+                if (result == DialogResult.Yes)
+                {
+                    System.Diagnostics.Process.Start("https://github.com/gwanryo/KakaoTalkAdBlock");
+                }
+            });
 
             // if startup is enabled, set startup menu checked
             {
@@ -170,7 +188,7 @@ namespace KakaoTalkAdBlock
         {
             while (true)
             {
-                System.Diagnostics.Debug.WriteLine("watching");
+                //System.Diagnostics.Debug.WriteLine("watching");
 
                 // hwnd must not be changed while removing ad
                 lock (hwndLock)
@@ -203,7 +221,7 @@ namespace KakaoTalkAdBlock
 
             while (true)
             {
-                System.Diagnostics.Debug.WriteLine("removing");
+                //System.Diagnostics.Debug.WriteLine("removing");
 
                 // hwnd must not be changed while removing ad
                 lock (hwndLock)
