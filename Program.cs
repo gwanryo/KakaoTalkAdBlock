@@ -96,7 +96,7 @@ namespace KakaoTalkAdBlock
             var loveWith = new ToolStripMenuItem();
 
             // version
-            versionItem.Text = "v0.0.12 (🙄 with gwanryo)";
+            versionItem.Text = "v0.0.13 (🙄 with gwanryo)";
             versionItem.Enabled = true;
             versionItem.Click += new EventHandler(delegate (object sender, EventArgs e)
             {
