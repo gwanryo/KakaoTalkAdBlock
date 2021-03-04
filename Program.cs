@@ -85,6 +85,9 @@ namespace KakaoTalkAdBlock
         const int UPDATE_RATE = 100;
 
         static uint WM_CLOSE = 0x10;
+
+        static uint popUpRemoveCounter = 0;
+        static string popUpDebugMessage = "";
         #endregion
 
         static ContextMenuStrip buildContextMenu()
@@ -93,28 +96,15 @@ namespace KakaoTalkAdBlock
             var versionItem = new ToolStripMenuItem();
             var exitItem = new ToolStripMenuItem();
             var startupItem = new ToolStripMenuItem();
-            var loveWith = new ToolStripMenuItem();
 
             // version
-            versionItem.Text = "v0.0.13 (🙄 with gwanryo)";
+            versionItem.Text = "v0.0.14 (gwanryo)";
             versionItem.Enabled = true;
             versionItem.Click += new EventHandler(delegate (object sender, EventArgs e)
             {
-                string message = "Nice to meet you!\nI'm gwanryo\nhttps://github.com/gwanryo";
-                DialogResult result = DialogResult.No;
-
-                while ((result = MessageBox.Show(message, "Introduce", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information)) == DialogResult.No)
-                {
-                    if (result == DialogResult.No)
-                    {
-                        MessageBox.Show("🤬", "🤬", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-
-                if (result == DialogResult.Yes)
-                {
-                    System.Diagnostics.Process.Start("https://github.com/gwanryo/KakaoTalkAdBlock");
-                }
+                string message = $"Remove footer ads every {UPDATE_RATE}ms\nRemove {popUpRemoveCounter} popup ads\n" + popUpDebugMessage;
+                MessageBox.Show(message, "Debug!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                popUpDebugMessage = "";
             });
 
             // if startup is enabled, set startup menu checked
@@ -295,8 +285,6 @@ namespace KakaoTalkAdBlock
                         GetClassName(popUpHwnd, classNameSb, classNameSb.Capacity);
                         string className = classNameSb.ToString();
 
-                        if (!className.Contains("EVA_Window_Dblclk")) continue;
-
                         // get rect of popup ad
                         RECT rectPopup = new RECT();
                         GetWindowRect(popUpHwnd, out rectPopup);
@@ -306,7 +294,15 @@ namespace KakaoTalkAdBlock
 
                         if (width.Equals(300) && height.Equals(150))
                         {
+                            popUpDebugMessage += $"{className}({popUpHwnd}) has {width}px, {height}px.\n";
+                        }
+
+                        if (!className.Contains("EVA_Window_Dblclk")) continue;
+
+                        if (width.Equals(300) && height.Equals(150))
+                        {
                             SendMessage(popUpHwnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                            popUpRemoveCounter++;
                         }
                     }
                 }
