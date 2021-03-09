@@ -12,10 +12,11 @@ namespace KakaoTalkAdBlock
     class Program
     {
         #region WinAPI
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
         static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
         [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool EnumChildWindows(IntPtr WindowHandle, EnumWindowProcess Callback, IntPtr lParam);
 
         [DllImport("user32.dll")]
@@ -24,7 +25,7 @@ namespace KakaoTalkAdBlock
         [DllImport("user32.dll")]
         static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr ihwndChildAfter, string lpszClass, string lpszWindow);
 
-        [DllImport("user32.dll")]
+        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
         static extern IntPtr GetParent(IntPtr hWnd);
 
         [DllImport("user32.dll", EntryPoint = "SetWindowPos", SetLastError = false)]
@@ -74,7 +75,6 @@ namespace KakaoTalkAdBlock
         static string APP_NAME = "KakaoTalkAdBlock";
 
         static volatile List<IntPtr> hwnd = new List<IntPtr>();
-        static IntPtr popUpHwnd = IntPtr.Zero;
         static Container container = new Container();
 
         static Thread watcherThread = new Thread(new ThreadStart(watchProcess));
@@ -98,7 +98,7 @@ namespace KakaoTalkAdBlock
             var startupItem = new ToolStripMenuItem();
 
             // version
-            versionItem.Text = "v0.0.14 (gwanryo)";
+            versionItem.Text = "v0.0.15 (gwanryo)";
             versionItem.Enabled = true;
             versionItem.Click += new EventHandler(delegate (object sender, EventArgs e)
             {
@@ -270,38 +270,32 @@ namespace KakaoTalkAdBlock
                                 SetWindowPos(childHwnd, IntPtr.Zero, 0, 0, width, height, SetWindowPosFlags.SWP_NOMOVE);
                             }
                         }
-                    }
 
-                    // close popup ad
-                    popUpHwnd = IntPtr.Zero;
-
-                    while ((popUpHwnd = FindWindowEx(IntPtr.Zero, popUpHwnd, null, "")) != IntPtr.Zero)
-                    {
                         // popup ad does not have any parent
-                        if (GetParent(popUpHwnd) != IntPtr.Zero) continue;
+                        if (GetParent(wnd) != IntPtr.Zero) continue;
 
-                        // get class name of blank title
+                        // get class name
                         var classNameSb = new StringBuilder(256);
-                        GetClassName(popUpHwnd, classNameSb, classNameSb.Capacity);
+                        GetClassName(wnd, classNameSb, classNameSb.Capacity);
                         string className = classNameSb.ToString();
 
                         // get rect of popup ad
                         RECT rectPopup = new RECT();
-                        GetWindowRect(popUpHwnd, out rectPopup);
+                        GetWindowRect(wnd, out rectPopup);
 
-                        var width = rectPopup.Right - rectPopup.Left;
-                        var height = rectPopup.Bottom - rectPopup.Top;
+                        var kWidth = rectPopup.Right - rectPopup.Left;
+                        var kHeight = rectPopup.Bottom - rectPopup.Top;
 
-                        if (width.Equals(300) && height.Equals(150))
+                        if (kWidth.Equals(300) && kHeight.Equals(150))
                         {
-                            popUpDebugMessage += $"{className}({popUpHwnd}) has {width}px, {height}px.\n";
+                            popUpDebugMessage += $"{className}({wnd}) has {kWidth}px, {kHeight}px.\n";
                         }
 
                         if (!className.Contains("EVA_Window_Dblclk")) continue;
 
-                        if (width.Equals(300) && height.Equals(150))
+                        if (kWidth.Equals(300) && kHeight.Equals(150))
                         {
-                            SendMessage(popUpHwnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                            SendMessage(wnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
                             popUpRemoveCounter++;
                         }
                     }
