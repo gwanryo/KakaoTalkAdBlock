@@ -98,7 +98,7 @@ namespace KakaoTalkAdBlock
             var startupItem = new ToolStripMenuItem();
 
             // version
-            versionItem.Text = "v0.0.15 (gwanryo)";
+            versionItem.Text = "v0.0.16 (gwanryo)";
             versionItem.Enabled = true;
             versionItem.Click += new EventHandler(delegate (object sender, EventArgs e)
             {
@@ -151,8 +151,7 @@ namespace KakaoTalkAdBlock
 
         static void Main(string[] args)
         {
-            bool isNotDuplicated = true;
-            var mutex = new Mutex(true, APP_NAME, out isNotDuplicated);
+            var mutex = new Mutex(true, APP_NAME, out bool isNotDuplicated);
 
             if (!isNotDuplicated)
             {
@@ -161,7 +160,7 @@ namespace KakaoTalkAdBlock
             }
 
             // build trayicon
-            NotifyIcon tray = new NotifyIcon(container)
+            _ = new NotifyIcon(container)
             {
                 Visible = true,
                 Icon = Properties.Resources.icon,
@@ -271,32 +270,34 @@ namespace KakaoTalkAdBlock
                             }
                         }
 
-                        // popup ad does not have any parent
-                        if (GetParent(wnd) != IntPtr.Zero) continue;
+                        IntPtr tmpHwnd = IntPtr.Zero;
 
-                        // get class name
-                        var classNameSb = new StringBuilder(256);
-                        GetClassName(wnd, classNameSb, classNameSb.Capacity);
-                        string className = classNameSb.ToString();
-
-                        // get rect of popup ad
-                        RECT rectPopup = new RECT();
-                        GetWindowRect(wnd, out rectPopup);
-
-                        var kWidth = rectPopup.Right - rectPopup.Left;
-                        var kHeight = rectPopup.Bottom - rectPopup.Top;
-
-                        if (kWidth.Equals(300) && kHeight.Equals(150))
+                        while ((tmpHwnd = FindWindowEx(wnd, tmpHwnd, null, null)) != IntPtr.Zero)
                         {
-                            popUpDebugMessage += $"{className}({wnd}) has {kWidth}px, {kHeight}px.\n";
-                        }
+                            // popup ad does not have any parent
+                            if (GetParent(wnd) != IntPtr.Zero) continue;
 
-                        if (!className.Contains("EVA_Window_Dblclk")) continue;
+                            // get class name
+                            var classNameSb = new StringBuilder(256);
+                            GetClassName(tmpHwnd, classNameSb, classNameSb.Capacity);
+                            string className = classNameSb.ToString();
 
-                        if (kWidth.Equals(300) && kHeight.Equals(150))
-                        {
-                            SendMessage(wnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
-                            popUpRemoveCounter++;
+                            // get rect of popup ad
+                            RECT rectPopup = new RECT();
+                            GetWindowRect(tmpHwnd, out rectPopup);
+
+                            var width = rectPopup.Right - rectPopup.Left;
+                            var height = rectPopup.Bottom - rectPopup.Top;
+
+                            if (width.Equals(300) && height.Equals(150))
+                            {
+                                popUpDebugMessage += $"{className}({tmpHwnd}) has {width}px, {height}px.\n";
+
+                                if (!className.Contains("EVA_Window_Dblclk")) continue;
+
+                                SendMessage(tmpHwnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                                popUpRemoveCounter++;
+                            }
                         }
                     }
                 }
