@@ -137,7 +137,7 @@ namespace KakaoTalkAdBlock
             var startupItem = new ToolStripMenuItem();
 
             // version
-            versionItem.Text = "v0.0.16 (gwanryo)";
+            versionItem.Text = "v0.0.18 (gwanryo)";
             versionItem.Enabled = true;
             versionItem.Click += new EventHandler(delegate (object sender, EventArgs e)
             {
