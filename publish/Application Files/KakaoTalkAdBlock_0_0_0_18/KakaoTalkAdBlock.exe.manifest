@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="KakaoTalkAdBlock.exe" version="0.0.0.18" publicKeyToken="ca7423f616140972" language="ko-KR" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="Resources\icon.ico" asmv2:publisher="gwanryo" co.v1:suiteName="KakaoTalkAdBlock" asmv2:product="KakaoTalkAdBlock" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="KakaoTalkAdBlock" version="1.0.0.0" publicKeyToken="7859FD76A0CD313F" language="neutral" processorArchitecture="msil" />
+    <commandLine file="KakaoTalkAdBlock.exe" parameters="" />
+  </entryPoint>
+  <co.v1:useManifestForTrust xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet version="1" class="System.Security.NamedPermissionSet" Name="LocalIntranet" Description="Default rights given to applications on the local intranet" Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!-- UAC 매니페스트 옵션
+             Windows 사용자 계정 컨트롤 수준을 변경하려면 
+             requestedExecutionLevel 노드를 다음 중 하나로 바꿉니다.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+            requestedExecutionLevel 요소를 지정하면 파일 및 레지스트리 가상화를 사용하지 않습니다. 
+            이전 버전과의 호환성을 위해 응용 프로그램에 가상화가 필요한 경우
+            이 요소를 제거합니다.
+-->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="KakaoTalkAdBlock.exe" size="357088">
+      <assemblyIdentity name="KakaoTalkAdBlock" version="1.0.0.0" publicKeyToken="7859FD76A0CD313F" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>KAm7DxqGLr4Sw9i1naTGfTi6QPgfFwjWANGOZCf1ak4=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="KakaoTalkAdBlock.exe.config" size="189">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>SYx/jocvnO8M8E99KQzzgEyCoAcgLJtIQSjJTQMED9A=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resources\icon.ico" size="169662">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>Dylcd40wSfP+sCjnXQ1cTq72mmtJd5E6YvJAnuPX+N0=</dsig:DigestValue>
+    </hash>
+  </file>
+  <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
+    <application>
+      <!-- 이 응용 프로그램이 테스트되고 함께 작동하도록 설계된 Windows 버전
+           목록입니다. 적절한 요소의 주석 처리를 제거하면 Windows에서 
+           호환 가능성이 가장 높은 환경을 자동으로 선택합니다. -->
+      <!-- Windows Vista -->
+      <!--<supportedOS Id="{e2011457-1546-43c5-a5fe-008deee3d3f0}" />-->
+      <!-- Windows 7 -->
+      <!--<supportedOS Id="{35138b9a-5d96-4fbd-8e2d-a2440225f93a}" />-->
+      <!-- Windows 8 -->
+      <!--<supportedOS Id="{4a2f28e3-53b9-4441-ba9c-d69d4a4a6e38}" />-->
+      <!-- Windows 8.1 -->
+      <!--<supportedOS Id="{1f676c76-80e1-4239-95bb-83d0f6d0da78}" />-->
+      <!-- Windows 10 -->
+      <!--<supportedOS Id="{8e0f7a12-bfb3-4fe8-b9a5-48fd50a15a9a}" />-->
+    </application>
+  </compatibility>
+<publisherIdentity name="CN=RYO-3070\RYO" issuerKeyHash="3b941cf62819632a0c3f6cb1b854b125ef83d541" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>lZxRrMD1/ErMM1yvHwQCdxLgo5twSi3HN1cOFvTT9uo=</DigestValue></Reference></SignedInfo><SignatureValue>czmqkwoxeIVU4hkYKpIRBtMjsAH47WvMlmFjL3ozskJNabgndtSnZvzvnqLUJ5PI4a/+93BbpAVkDjW0/hvVG4pTMCw7dGZzCxYt8kc+RkGe3MsQidg6mczq66EHnn1iZ/0T0kOQL2NlyQQ5397nA8eXBMLSd7gKylhAG8yxe+Y=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>2ydNyvrLNpm6+/yIHF2qMUBk/9aePI4KN6J1VfqSLgP8M6l2qdyZMa+gX1Q6khjeYPHqGIzaCIXLqyHbQTpa8kMYZxPN2v9VYTrE7mz4UzwxTcJ/eufjjjGWG5VpUZ3pE4JTIRo38xvEkscoRvIY8p1rS9TU3rikGaeqLc0a4pk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="eaf6d3f4160e5737c72d4a709ba3e0127702041faf5c33cc4afcf5c0ac519c95" Description="" Url=""><as:assemblyIdentity name="KakaoTalkAdBlock.exe" version="0.0.0.18" publicKeyToken="ca7423f616140972" language="ko-KR" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=RYO-3070\RYO</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>USJ1q8hcVOql/LweBmaCx8cfkSAAL9f3QwJKZw7Oye8=</DigestValue></Reference></SignedInfo><SignatureValue>ip53enEiQ8S3dDK+MB0M/lFX9tvfz3yz1BM/7enHXqukrmDocZyP2QNMFIDPPHmiLOgymBwl1l/KJbSq5oFjCJDj5WHs+3r5Mn7A6B4MmOSNaKoDr/Yg0RoeY6yoGsWfd/BFS5MEU2raEFBr1AIbnKyLv8/axF3tRJbVgyJit0Q=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>2ydNyvrLNpm6+/yIHF2qMUBk/9aePI4KN6J1VfqSLgP8M6l2qdyZMa+gX1Q6khjeYPHqGIzaCIXLqyHbQTpa8kMYZxPN2v9VYTrE7mz4UzwxTcJ/eufjjjGWG5VpUZ3pE4JTIRo38xvEkscoRvIY8p1rS9TU3rikGaeqLc0a4pk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIByTCCATKgAwIBAgIQRgrW61gAOohBJxp6P8Jt9DANBgkqhkiG9w0BAQsFADAjMSEwHwYDVQQDHhgAUgBZAE8ALQAzADAANwAwAFwAUgBZAE8wHhcNMjEwMjI2MDQxNjQyWhcNMjIwMjI2MTAxNjQyWjAjMSEwHwYDVQQDHhgAUgBZAE8ALQAzADAANwAwAFwAUgBZAE8wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANsnTcr6yzaZuvv8iBxdqjFAZP/WnjyOCjeidVX6ki4D/DOpdqncmTGvoF9UOpIY3mDx6hiM2giFy6sh20E6WvJDGGcTzdr/VWE6xO5s+FM8MU3Cf3rn444xlhuVaVGd6ROCUyEaN/MbxJLHKEbyGPKda0vU1N64pBmnqi3NGuKZAgMBAAEwDQYJKoZIhvcNAQELBQADgYEAshG+vsgTQOHQrp1CTDvtwgfn5bmz4F1ZEE8wEhlYN+eIyBjuGc1FH/Heywe5F8vfZ/PrgFuo7svrTYZvOZyA0O7lEhsVxpxSV4tIIBpcSZ2hqBOZl49QNpZHvdZyGmv/06Yoywhkj3FWzVvRvi6aJAKWfKI8o/gIHT8jiAWHK+k=</X509Certificate></X509Data></KeyInfo><Object><as:Timestamp>MIINFwYJKoZIhvcNAQcCoIINCDCCDQQCAQExDzANBglghkgBZQMEAgEFADCBkQYJ
+KoZIhvcNAQcBoIGDBIGAip53enEiQ8S3dDK+MB0M/lFX9tvfz3yz1BM/7enHXquk
+rmDocZyP2QNMFIDPPHmiLOgymBwl1l/KJbSq5oFjCJDj5WHs+3r5Mn7A6B4MmOSN
+aKoDr/Yg0RoeY6yoGsWfd/BFS5MEU2raEFBr1AIbnKyLv8/axF3tRJbVgyJit0Sg
+ggo3MIIE/jCCA+agAwIBAgIQDUJK4L46iP9gQCHOFADw3TANBgkqhkiG9w0BAQsF
+ADByMQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQL
+ExB3d3cuZGlnaWNlcnQuY29tMTEwLwYDVQQDEyhEaWdpQ2VydCBTSEEyIEFzc3Vy
+ZWQgSUQgVGltZXN0YW1waW5nIENBMB4XDTIxMDEwMTAwMDAwMFoXDTMxMDEwNjAw
+MDAwMFowSDELMAkGA1UEBhMCVVMxFzAVBgNVBAoTDkRpZ2lDZXJ0LCBJbmMuMSAw
+HgYDVQQDExdEaWdpQ2VydCBUaW1lc3RhbXAgMjAyMTCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBAMLmYYRnxYr1DQikRcpja1HXOhFCvQp1dU2UtAxQtSYQ
+/h3Ib5FrDJbnGlxI70Tlv5thzRWRYlq4/2cLnGP9NmqB+in43Stwhd4CGPN4bbx9
++cdtCT2+anaH6Yq9+IRdHnbJ5MZ2djpT0dHTWjaPxqPhLxs6t2HWc+xObTOKfF1F
+LUuxUOZBOjdWhtyTI433UCXoZObd048vV7WHIOsOjizVI9r0TXhG4wODMSlKXAwx
+ikqMiMX3MFr5FK8VX2xDSQn9JiNT9o1j6BqrW7EdMMKbaYK02/xWVLwfoYervnpb
+CiAvSwnJlaeNsvrWY4tOpXIc7p96AXP4Gdb+DUmEvQECAwEAAaOCAbgwggG0MA4G
+A1UdDwEB/wQEAwIHgDAMBgNVHRMBAf8EAjAAMBYGA1UdJQEB/wQMMAoGCCsGAQUF
+BwMIMEEGA1UdIAQ6MDgwNgYJYIZIAYb9bAcBMCkwJwYIKwYBBQUHAgEWG2h0dHA6
+Ly93d3cuZGlnaWNlcnQuY29tL0NQUzAfBgNVHSMEGDAWgBT0tuEgHf4prtLkYaWy
+oiWyyBc1bjAdBgNVHQ4EFgQUNkSGjqS6sGa+vCgtHUQ23eNqerwwcQYDVR0fBGow
+aDAyoDCgLoYsaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL3NoYTItYXNzdXJlZC10
+cy5jcmwwMqAwoC6GLGh0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNvbS9zaGEyLWFzc3Vy
+ZWQtdHMuY3JsMIGFBggrBgEFBQcBAQR5MHcwJAYIKwYBBQUHMAGGGGh0dHA6Ly9v
+Y3NwLmRpZ2ljZXJ0LmNvbTBPBggrBgEFBQcwAoZDaHR0cDovL2NhY2VydHMuZGln
+aWNlcnQuY29tL0RpZ2lDZXJ0U0hBMkFzc3VyZWRJRFRpbWVzdGFtcGluZ0NBLmNy
+dDANBgkqhkiG9w0BAQsFAAOCAQEASBzctemaI7znGucgDo5nRv1CclF0CiNHo6uS
+0iXEcFm+FKDlJ4GlTRQVGQd58NEEw4bZO73+RAJmTe1ppA/2uHDPYuj1UUp4eTZ6
+J7fz51Kfk6ftQ55757TdQSKJ+4eiRgNO/PT+t2R3Y18jUmmDgvoaU+2QzI2hF3MN
+9PNlOXBL85zWenvaDLw9MtAby/Vh/HUIAHa8gQ74wOFcz8QRcucbZEnYIpp1FUL1
+LTI4gdr0YKK6tFL7XOBhJCVPst/JKahzQ1HavWPWH1ub9y4bTxMd90oNcX6Xt/Q/
+hOvB46NJofrOp79Wz7pZdmGJX36ntI5nePk2mOHLKNpbh6aKLzCCBTEwggQZoAMC
+AQICEAqhJdbWMht+QeQF2jaXwhUwDQYJKoZIhvcNAQELBQAwZTELMAkGA1UEBhMC
+VVMxFTATBgNVBAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0
+LmNvbTEkMCIGA1UEAxMbRGlnaUNlcnQgQXNzdXJlZCBJRCBSb290IENBMB4XDTE2
+MDEwNzEyMDAwMFoXDTMxMDEwNzEyMDAwMFowcjELMAkGA1UEBhMCVVMxFTATBgNV
+BAoTDERpZ2lDZXJ0IEluYzEZMBcGA1UECxMQd3d3LmRpZ2ljZXJ0LmNvbTExMC8G
+A1UEAxMoRGlnaUNlcnQgU0hBMiBBc3N1cmVkIElEIFRpbWVzdGFtcGluZyBDQTCC
+ASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAL3QMu5LzY9/3am6gpnFOVQo
+V7YjSsQOB0UzURB90Pl9TWh+57ag9I2ziOSXv2MhkJi/E7xX08PhfgjWahQAOPcu
+HjvuzKb2Mln+X2U/4Jvr40ZHBhpVfgsnfsCi9aDg3iI/Dv9+lfvzo7oiPhisEeTw
+mQNtO4V8CdPuXciaC1TjqAlxa+DPIhAPdc9xck4Krd9AOly3UeGheRTGTSQjMF28
+7DxgaqwvB8z98OpH2YhQXv1mblZhJymJhFHmgudGUP2UKiyn5HU+upgPhH+fMRTW
+rdXyZMt7HgXQhBlyF/EXBu89zdZN7wZC/aJTKk+FHcQdPK/P2qwQ9d2srOlW/5MC
+AwEAAaOCAc4wggHKMB0GA1UdDgQWBBT0tuEgHf4prtLkYaWyoiWyyBc1bjAfBgNV
+HSMEGDAWgBRF66Kv9JLLgjEtUYunpyGd823IDzASBgNVHRMBAf8ECDAGAQH/AgEA
+MA4GA1UdDwEB/wQEAwIBhjATBgNVHSUEDDAKBggrBgEFBQcDCDB5BggrBgEFBQcB
+AQRtMGswJAYIKwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmRpZ2ljZXJ0LmNvbTBDBggr
+BgEFBQcwAoY3aHR0cDovL2NhY2VydHMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNz
+dXJlZElEUm9vdENBLmNydDCBgQYDVR0fBHoweDA6oDigNoY0aHR0cDovL2NybDQu
+ZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZElEUm9vdENBLmNybDA6oDigNoY0
+aHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZElEUm9vdENB
+LmNybDBQBgNVHSAESTBHMDgGCmCGSAGG/WwAAgQwKjAoBggrBgEFBQcCARYcaHR0
+cHM6Ly93d3cuZGlnaWNlcnQuY29tL0NQUzALBglghkgBhv1sBwEwDQYJKoZIhvcN
+AQELBQADggEBAHGVEulRh1Zpze/d2nyqY3qzeM8GN0CE70uEv8rPAwL9xafDDiBC
+LK938ysfDCFaKrcFNB1qrpn4J6JmvwmqYN92pDqTD/iy0dh8GWLoXoIlHsS6HHss
+IeLWWywUNUMEaLLbdQLgcseY1jxk5R9IEBhfiThhTWJGJIdjjJFSLK8pieV4H9YL
+FKWA1xJHcLN11ZOFk362kmf7U2GJqPVrlsD0WGkNfMgBsbkodbeZY4UijGHKeZR+
+WfyMD+NvtQEmtmyl7odRIeRYYJu6DC0rbaLEfrvEJStHAgh8Sa4TtuF8QkIoxhhW
+z0E0tmZdtnR79VYzIi8iNrJLokqV2PWmjlIxggIdMIICGQIBATCBhjByMQswCQYD
+VQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3d3cuZGln
+aWNlcnQuY29tMTEwLwYDVQQDEyhEaWdpQ2VydCBTSEEyIEFzc3VyZWQgSUQgVGlt
+ZXN0YW1waW5nIENBAhANQkrgvjqI/2BAIc4UAPDdMA0GCWCGSAFlAwQCAQUAoGkw
+GAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjEwMzEw
+MTUxMzE4WjAvBgkqhkiG9w0BCQQxIgQgXDILyExwaxfFFQKwF8e0AKUeIsvyrP+n
+GbImDjKSHFAwDQYJKoZIhvcNAQEBBQAEggEAvSnS4SBwTZqDE8McUU0arwytoW0C
+TtFgsN9njc67IW5P80fWtMY5KzZv/42RSTeKFwflgu+Gj1Y77GGCD/HQ8alJVEF5
+WbqX0oBzQ3itFABVka02DHsxCJpbvCzWBtoENCyIkJRM3/BfGLjxt1QEb047N7vN
+FUoIKVETXgCQ2f6A0Nhqxq3xXZk+yxzH1m3e6yEFq0hco4dr+8xcJkpihOTOJmaQ
+nvK5fg11sl4YHcteRj8aWwgTS3MlF4eXyoMFcK46hxvE1wmjP/VSfEnoAs+iS55D
+GfVcKyqXh5qFnDo2wnHZPo08qUg6j936aY3Wa18RxapBJ5fReZvsxc/93Q==
+</as:Timestamp></Object></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
