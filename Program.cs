@@ -43,6 +43,9 @@ namespace KakaoTalkAdBlock
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
         static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern void GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
         static class SetWindowPosFlags
         {
             public const int SWP_NOMOVE = 0x0002;
@@ -66,6 +69,42 @@ namespace KakaoTalkAdBlock
                 throw new Exception("GCHandle Target could not be cast as List(Of IntPtr)");
             target.Add(Handle);
             return true;
+        }
+
+        /* 
+         * Using below codes to get all handle of windows
+         * https://stackoverflow.com/a/22440420
+         */
+        static List<IntPtr> GetChildWindows(IntPtr hWnd)
+        {
+            List<IntPtr> result = new List<IntPtr>();
+            GCHandle listHandle = GCHandle.Alloc(result);
+            try
+            {
+                EnumChildWindows(hWnd, new EnumWindowProcess(EnumWindow), GCHandle.ToIntPtr(listHandle));
+            }
+            finally
+            {
+                if (listHandle.IsAllocated)
+                    listHandle.Free();
+            }
+            return result;
+        }
+
+        static List<IntPtr> GetRootWindowsOfProcess(uint procId)
+        {
+            List<IntPtr> rootWnds = GetChildWindows(IntPtr.Zero);
+            List<IntPtr> pIdWnds = new List<IntPtr>();
+            foreach (IntPtr wnd in rootWnds)
+            {
+                uint wndProcId;
+                GetWindowThreadProcessId(wnd, out wndProcId);
+
+                IntPtr wndProcIdPtr = new IntPtr(wndProcId);
+                if (wndProcId == procId && GetParent(wndProcIdPtr) != IntPtr.Zero)
+                    pIdWnds.Add(wnd);
+            }
+            return pIdWnds;
         }
         #endregion
 
@@ -202,8 +241,6 @@ namespace KakaoTalkAdBlock
 
         static void removeAd()
         {
-            var localHwnd = new List<IntPtr>();
-            var childHwnds = new List<IntPtr>();
             var windowClass = new StringBuilder(256);
             var windowCaption = new StringBuilder(256);
             var windowParentCaption = new StringBuilder(256);
@@ -217,30 +254,13 @@ namespace KakaoTalkAdBlock
                 {
                     foreach (IntPtr wnd in hwnd)
                     {
-                        childHwnds.Clear();
-                        var gcHandle = GCHandle.Alloc(childHwnds);
-
-                        // get handles from child windows
-                        try
-                        {
-                            EnumChildWindows(wnd, new EnumWindowProcess(EnumWindow), GCHandle.ToIntPtr(gcHandle));
-                        }
-                        finally
-                        {
-                            if (gcHandle.IsAllocated) gcHandle.Free();
-                        }
-
-                        // get rect of kakaotalk
-                        RECT rectKakaoTalk = new RECT();
-                        GetWindowRect(wnd, out rectKakaoTalk);
-
                         // iterate all child windows of kakaotalk
-                        foreach (var childHwnd in childHwnds)
+                        foreach (var childHwnd in GetChildWindows(wnd))
                         {
                             GetClassName(childHwnd, windowClass, windowClass.Capacity);
                             GetWindowText(childHwnd, windowCaption, windowCaption.Capacity);
 
-                            // hide ad
+                            // hide footer ad
                             if (windowClass.ToString().Equals("EVA_Window"))
                             {
                                 GetWindowText(GetParent(childHwnd), windowParentCaption, windowParentCaption.Capacity);
@@ -252,50 +272,51 @@ namespace KakaoTalkAdBlock
                                 }
                             }
 
+                            // get rect of kakaotalk
+                            GetWindowRect(wnd, out RECT rectKakaoTalk);
+
+                            var width = rectKakaoTalk.Right - rectKakaoTalk.Left;
+                            var height = rectKakaoTalk.Bottom - rectKakaoTalk.Top;
+
                             // remove white area
                             if (windowCaption.ToString().StartsWith("OnlineMainView") && GetParent(childHwnd) == wnd)
                             {
-                                var width = rectKakaoTalk.Right - rectKakaoTalk.Left;
-                                var height = (rectKakaoTalk.Bottom - rectKakaoTalk.Top) - 31; // 31; there might be dragon. don't touch it.
                                 UpdateWindow(wnd);
-                                SetWindowPos(childHwnd, IntPtr.Zero, 0, 0, width, height, SetWindowPosFlags.SWP_NOMOVE);
+                                SetWindowPos(childHwnd, IntPtr.Zero, 0, 0, width, height - 31, SetWindowPosFlags.SWP_NOMOVE); // 31; there might be dragon. don't touch it.
                             }
 
                             if (windowCaption.ToString().StartsWith("LockModeView") && GetParent(childHwnd) == wnd)
                             {
-                                var width = rectKakaoTalk.Right - rectKakaoTalk.Left;
-                                var height = (rectKakaoTalk.Bottom - rectKakaoTalk.Top); // 38; there might be dragon. don't touch it.
                                 UpdateWindow(wnd);
                                 SetWindowPos(childHwnd, IntPtr.Zero, 0, 0, width, height, SetWindowPosFlags.SWP_NOMOVE);
                             }
                         }
 
-                        IntPtr tmpHwnd = IntPtr.Zero;
+                        // get process id of kakaotalk
+                        GetWindowThreadProcessId(wnd, out uint procId);
 
-                        while ((tmpHwnd = FindWindowEx(wnd, tmpHwnd, null, null)) != IntPtr.Zero)
+                        // iterate all windows have kakaotalk process id
+                        foreach (IntPtr parentHwnd in GetRootWindowsOfProcess(procId))
                         {
-                            // popup ad does not have any parent
-                            if (GetParent(wnd) != IntPtr.Zero) continue;
+                            // get rect of popup ad
+                            GetWindowRect(wnd, out RECT rectPopupAd);
+                            var width = rectPopupAd.Right - rectPopupAd.Left;
+                            var height = rectPopupAd.Bottom - rectPopupAd.Top;
+
+                            if (!width.Equals(300) || !height.Equals(150)) continue;
 
                             // get class name
-                            var classNameSb = new StringBuilder(256);
-                            GetClassName(tmpHwnd, classNameSb, classNameSb.Capacity);
-                            string className = classNameSb.ToString();
+                            GetClassName(parentHwnd, windowClass, windowClass.Capacity);
+                            GetWindowText(parentHwnd, windowCaption, windowCaption.Capacity);
+                            string className = windowClass.ToString();
+                            string windowText = windowCaption.ToString();
 
-                            // get rect of popup ad
-                            RECT rectPopup = new RECT();
-                            GetWindowRect(tmpHwnd, out rectPopup);
+                            popUpDebugMessage += $"[{windowText}|{className}]({parentHwnd}) has {width}px, {height}px.\n";
 
-                            var width = rectPopup.Right - rectPopup.Left;
-                            var height = rectPopup.Bottom - rectPopup.Top;
-
-                            if (width.Equals(300) && height.Equals(150))
+                            // popup ad class name contains EVA_Window_Dblclk
+                            if (className.Contains("EVA_Window_Dblclk"))
                             {
-                                popUpDebugMessage += $"{className}({tmpHwnd}) has {width}px, {height}px.\n";
-
-                                if (!className.Contains("EVA_Window_Dblclk")) continue;
-
-                                SendMessage(tmpHwnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
+                                SendMessage(parentHwnd, WM_CLOSE, IntPtr.Zero, IntPtr.Zero);
                                 popUpRemoveCounter++;
                             }
                         }
