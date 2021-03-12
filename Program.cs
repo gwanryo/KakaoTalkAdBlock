@@ -101,7 +101,7 @@ namespace KakaoTalkAdBlock
                 GetWindowThreadProcessId(wnd, out wndProcId);
 
                 IntPtr wndProcIdPtr = new IntPtr(wndProcId);
-                if (wndProcId == procId && GetParent(wndProcIdPtr) != IntPtr.Zero)
+                if (wndProcId == procId && GetParent(wndProcIdPtr) == IntPtr.Zero)
                     pIdWnds.Add(wnd);
             }
             return pIdWnds;
@@ -137,7 +137,7 @@ namespace KakaoTalkAdBlock
             var startupItem = new ToolStripMenuItem();
 
             // version
-            versionItem.Text = "v0.0.18 (gwanryo)";
+            versionItem.Text = "v0.0.19 (gwanryo)";
             versionItem.Enabled = true;
             versionItem.Click += new EventHandler(delegate (object sender, EventArgs e)
             {
@@ -255,7 +255,7 @@ namespace KakaoTalkAdBlock
                     foreach (IntPtr wnd in hwnd)
                     {
                         // iterate all child windows of kakaotalk
-                        foreach (var childHwnd in GetChildWindows(wnd))
+                        foreach (IntPtr childHwnd in GetChildWindows(wnd))
                         {
                             GetClassName(childHwnd, windowClass, windowClass.Capacity);
                             GetWindowText(childHwnd, windowCaption, windowCaption.Capacity);
